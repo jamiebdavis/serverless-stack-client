@@ -1,4 +1,6 @@
 const config = {
+    MAX_ATTACHMENT_SIZE: 5000000,
+
     s3: {
         REGION: "eu-west-1",
         BUCKET: "notes-bucket-2-jd",
