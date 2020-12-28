@@ -6,6 +6,7 @@ import NewNote from "./containers/NewNote";
 import NotFound from "./containers/NotFound";
 import Notes from "./containers/Notes";
 import React from "react";
+import Settings from "./containers/Settings";
 import Signup from "./containers/Signup";
 
 export default function Routes() {
@@ -25,6 +26,9 @@ export default function Routes() {
             </Route>
             <Route exact path="/notes/:id">
                 <Notes />
+            </Route>
+            <Route exact path="/settings">
+                <Settings />
             </Route>
             {/* Finally, catch all unmatched routes */}
             <Route>
