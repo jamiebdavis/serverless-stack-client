@@ -1,41 +1,26 @@
 import { Route, Switch } from "react-router-dom";
 
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import Home from "./containers/Home";
-import Login from "./containers/Login";
-import NewNote from "./containers/NewNote";
-import NotFound from "./containers/NotFound";
-import Notes from "./containers/Notes";
 import React from "react";
-import Settings from "./containers/Settings";
-import Signup from "./containers/Signup";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+import asyncComponent from "./components/AsyncComponent";
 
-export default function Routes() {
-    return (
-        <Switch>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            <UnauthenticatedRoute exact path="/login">
-                <Login />
-            </UnauthenticatedRoute>
-            <UnauthenticatedRoute exact path="/signup">
-                <Signup />
-            </UnauthenticatedRoute>
-            <AuthenticatedRoute exact path="/settings">
-                <Settings />
-            </AuthenticatedRoute>
-            <AuthenticatedRoute exact path="/notes/new">
-                <NewNote />
-            </AuthenticatedRoute>
-            <AuthenticatedRoute exact path="/notes/:id">
-                <Notes />
-            </AuthenticatedRoute>
-            {/* Finally, catch all unmatched routes */}
-            <Route>
-                <NotFound />
-            </Route>
-        </Switch>
-    );
-}
+const AsyncHome = asyncComponent(() => import("./containers/Home"));
+const AsyncLogin = asyncComponent(() => import("./containers/Login"));
+const AsyncNotes = asyncComponent(() => import("./containers/Notes"));
+const AsyncSignup = asyncComponent(() => import("./containers/Signup"));
+const AsyncNewNote = asyncComponent(() => import("./containers/NewNote"));
+const AsyncNotFound = asyncComponent(() => import("./containers/NotFound"));
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default ({ childProps }) => (
+    <Switch>
+        <Route path="/" exact component={AsyncHome} props={childProps} />
+        <UnauthenticatedRoute path="/login" exact component={AsyncLogin} props={childProps} />
+        <UnauthenticatedRoute path="/signup" exact component={AsyncSignup} props={childProps} />
+        <AuthenticatedRoute path="/notes/new" exact component={AsyncNewNote} props={childProps} />
+        <AuthenticatedRoute path="/notes/:id" exact component={AsyncNotes} props={childProps} />
+        {/* Finally, catch all unmatched routes */}
+        <Route component={AsyncNotFound} />
+    </Switch>
+);
