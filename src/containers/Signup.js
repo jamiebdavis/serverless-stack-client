@@ -3,6 +3,7 @@ import "./Signup.css";
 import React, { useState } from "react";
 
 import { Auth } from "aws-amplify";
+import FacebookButton from "../components/FacebookButton";
 import Form from "react-bootstrap/Form";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
@@ -33,6 +34,10 @@ export default function Signup() {
     function validateConfirmationForm() {
         return fields.confirmationCode.length > 0;
     }
+
+    const handleFbLogin = () => {
+        userHasAuthenticated(true);
+    };
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -99,6 +104,8 @@ export default function Signup() {
     function renderForm() {
         return (
             <Form onSubmit={handleSubmit}>
+                <FacebookButton onLogin={handleFbLogin} />
+                <hr />
                 <Form.Group controlId="email" size="lg">
                     <Form.Label>Email</Form.Label>
                     <Form.Control

@@ -10,6 +10,7 @@ const AsyncLogin = asyncComponent(() => import("./containers/Login"));
 const AsyncNotes = asyncComponent(() => import("./containers/Notes"));
 const AsyncSignup = asyncComponent(() => import("./containers/Signup"));
 const AsyncNewNote = asyncComponent(() => import("./containers/NewNote"));
+const AsyncSettings = asyncComponent(() => import("./containers/Settings"));
 const AsyncNotFound = asyncComponent(() => import("./containers/NotFound"));
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -20,6 +21,7 @@ export default ({ childProps }) => (
         <UnauthenticatedRoute path="/signup" exact component={AsyncSignup} props={childProps} />
         <AuthenticatedRoute path="/notes/new" exact component={AsyncNewNote} props={childProps} />
         <AuthenticatedRoute path="/notes/:id" exact component={AsyncNotes} props={childProps} />
+        <AuthenticatedRoute path="/settings" exact component={AsyncSettings} props={childProps} />
         {/* Finally, catch all unmatched routes */}
         <Route component={AsyncNotFound} />
     </Switch>
