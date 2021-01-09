@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import FacebookButton from "../components/FacebookButton";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 import { useAppContext } from "../libs/contextLib";
@@ -63,6 +64,7 @@ export default function Login() {
                             onChange={handleFieldChange}
                         />
                     </Form.Group>
+                    <Link to="/login/reset">Forgot password?</Link>
                     <LoaderButton
                         block
                         size="lg"
